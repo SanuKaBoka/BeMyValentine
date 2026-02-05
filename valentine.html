@@ -1,0 +1,341 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>The Question</title>
+  <style>
+    :root{
+      --ink:#141414;
+      --yes:#16a34a;
+      --yes2:#22c55e;
+      --no:#ef4444;
+
+      --card: rgba(255,255,255,.78);
+      --card2: rgba(255,255,255,.60);
+      --border: rgba(255,255,255,.35);
+      --shadow: 0 18px 55px rgba(0,0,0,.22);
+      --radius: 24px;
+    }
+    *{box-sizing:border-box}
+    body{
+      margin:0;
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
+      min-height:100vh;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      padding:24px;
+      color:var(--ink);
+      background:
+        radial-gradient(1000px 600px at 20% 10%, rgba(255, 200, 225, .55), transparent 60%),
+        radial-gradient(900px 600px at 85% 30%, rgba(200, 230, 255, .45), transparent 60%),
+        linear-gradient(180deg, rgba(10,10,10,.42) 0%, rgba(10,10,10,.26) 40%, rgba(10,10,10,.18) 100%),
+        url("valentine-bg.jpg");
+      background-size: cover;
+      background-position: center;
+      background-attachment: fixed;
+    }
+    .card{
+      width:min(980px, 100%);
+      background: linear-gradient(180deg, var(--card), var(--card2));
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      padding: 26px;
+      backdrop-filter: blur(10px);
+      position:relative;
+      overflow:hidden;
+    }
+    .badge{
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      padding:10px 12px;
+      border-radius:999px;
+      background: rgba(255,255,255,.82);
+      border:1px solid rgba(0,0,0,.06);
+      font-weight:900;
+      font-size:13px;
+      box-shadow: 0 10px 25px rgba(0,0,0,.10);
+    }
+
+    /* Layout: title area + mood photo on the right */
+    .hero{
+      margin-top:14px;
+      display:flex;
+      align-items:flex-start;
+      justify-content:space-between;
+      gap:18px;
+      flex-wrap:wrap;
+    }
+    .titleWrap{
+      flex:1 1 420px;
+      min-width:260px;
+    }
+    h1{
+      margin:0;
+      font-size: clamp(28px, 3.2vw, 44px);
+      letter-spacing:-.02em;
+      line-height:1.05;
+    }
+    p{
+      margin: 10px 0 0;
+      color: rgba(0,0,0,.70);
+      line-height:1.6;
+      max-width: 70ch;
+    }
+
+    .moodCard{
+      width:260px;
+      flex:0 0 auto;
+      border-radius:22px;
+      overflow:hidden;
+      background: rgba(255,255,255,.74);
+      border: 1px solid rgba(0,0,0,.08);
+      box-shadow: 0 18px 45px rgba(0,0,0,.16);
+      transform: rotate(0.6deg);
+    }
+    .moodCard img{
+      width:100%;
+      height:260px;
+      object-fit: cover;
+      display:block;
+      filter: saturate(1.02) contrast(1.02);
+    }
+    .moodCaption{
+      padding:10px 12px;
+      font-weight:900;
+      font-size:13px;
+      color: rgba(0,0,0,.70);
+      background: rgba(255,255,255,.78);
+      border-top: 1px solid rgba(0,0,0,.06);
+    }
+
+    .arena{
+      margin-top:18px;
+      position:relative;
+      height:300px;
+      border-radius:18px;
+      border:1px solid rgba(0,0,0,.10);
+      background:
+        radial-gradient(520px 240px at 18% 30%, rgba(255,182,193,.40), transparent 60%),
+        radial-gradient(520px 240px at 78% 60%, rgba(173,216,230,.38), transparent 60%),
+        rgba(255,255,255,.55);
+      overflow:hidden;
+      box-shadow: 0 18px 45px rgba(0,0,0,.12);
+      backdrop-filter: blur(6px);
+    }
+
+    .btn{
+      border:0;
+      cursor:pointer;
+      font-weight:900;
+      padding:15px 22px;
+      border-radius:16px;
+      font-size:18px;
+      box-shadow: 0 10px 22px rgba(0,0,0,.16);
+      transition: transform .12s ease, filter .12s ease;
+      user-select:none;
+      -webkit-tap-highlight-color: transparent;
+    }
+    .btn:hover{ transform: translateY(-1px); filter: brightness(1.03); }
+    .btn:active{ transform: translateY(1px) scale(.99); }
+
+    .yesWrap{
+      position:absolute;
+      left: 35%;
+      top: 58%;
+      transform: translate(-50%,-50%);
+    }
+    .yes{
+      background: linear-gradient(135deg, var(--yes2), var(--yes));
+      color:#fff;
+    }
+
+    .no{
+      background: linear-gradient(135deg, #ff6b6b, var(--no));
+      color:#fff;
+      position:absolute;
+      left: 60%;
+      top: 58%;
+      transform: translate(-50%,-50%);
+      touch-action:none;
+    }
+
+    .hint{
+      position:absolute;
+      bottom:14px;
+      left:14px;
+      right:14px;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:12px;
+      font-size:13px;
+      color:rgba(0,0,0,.62);
+      pointer-events:none;
+    }
+    .counter{
+      font-variant-numeric: tabular-nums;
+      background: rgba(255,255,255,.78);
+      border:1px solid rgba(0,0,0,.06);
+      padding:8px 10px;
+      border-radius:999px;
+      white-space:nowrap;
+    }
+
+    @media (max-width: 560px){
+      .moodCard{ width:100%; }
+      .moodCard img{ height:240px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <div class="badge">🐱 Cat Council: Final Boss</div>
+
+    <div class="hero">
+      <div class="titleWrap">
+        <h1>Will you be my Valentine? 🥺👉👈</h1>
+        <p>Cat Council recommends YES for maximum happiness. The NO button is… shy.</p>
+      </div>
+
+      <div class="moodCard" aria-hidden="true">
+        <img id="moodPic" src="grumpy.jpeg" alt="mood" />
+        <div class="moodCaption" id="moodCap">🐱 Don’t chase NO 😾</div>
+      </div>
+    </div>
+
+    <div class="arena" id="arena">
+      <div class="yesWrap">
+        <button class="btn yes" id="yesBtn" type="button">YES 💚</button>
+      </div>
+      <button class="btn no" id="noBtn" type="button">NO 💔</button>
+
+      <div class="hint">
+        <div>Tip: don’t chase NO. it gets zoomies 🐾</div>
+        <div class="counter">NO dodges: <span id="dodges">0</span></div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // gate: if quiz not passed, redirect back
+    if (localStorage.getItem("quizPassed") !== "1") {
+      window.location.href = "index.html";
+    }
+
+    const arena = document.getElementById("arena");
+    const noBtn = document.getElementById("noBtn");
+    const yesBtn = document.getElementById("yesBtn");
+    const dodgesEl = document.getElementById("dodges");
+
+    const moodPic = document.getElementById("moodPic");
+    const moodCap = document.getElementById("moodCap");
+
+    // images you said you have
+    const IMG_GRUMPY = "grumpy.jpeg";
+    const IMG_YES = "yes.jpg";
+
+    // preload
+    [IMG_GRUMPY, IMG_YES].forEach(src => { const i = new Image(); i.src = src; });
+
+    let dodges = 0;
+    let lastMoveAt = 0;
+
+    const clamp = (v, min, max) => Math.max(min, Math.min(max, v));
+
+    function setMood(which){
+      if (which === "yes"){
+        moodPic.src = IMG_YES;
+        moodCap.textContent = "🐱 PURRMITTED ✅ (YES energy)";
+      } else {
+        moodPic.src = IMG_GRUMPY;
+        moodCap.textContent = "🐱 Don’t chase NO 😾";
+      }
+    }
+
+    function centerOf(el){
+      const r = el.getBoundingClientRect();
+      return { x: r.left + r.width/2, y: r.top + r.height/2 };
+    }
+    function dist(a,b){
+      const dx = a.x - b.x, dy = a.y - b.y;
+      return Math.hypot(dx, dy);
+    }
+
+    function moveNo() {
+      const now = Date.now();
+      if (now - lastMoveAt < 70) return;
+      lastMoveAt = now;
+
+      // chasing NO -> grumpy
+      setMood("no");
+
+      const a = arena.getBoundingClientRect();
+      const b = noBtn.getBoundingClientRect();
+
+      const pad = 14;
+      const maxX = a.width - b.width - pad;
+      const maxY = a.height - b.height - pad;
+
+      const x = clamp(Math.random() * maxX, pad, maxX);
+      const y = clamp(Math.random() * maxY, pad, maxY);
+
+      noBtn.style.left = `${x}px`;
+      noBtn.style.top = `${y}px`;
+      noBtn.style.transform = "translate(0,0)";
+
+      dodges++;
+      dodgesEl.textContent = dodges;
+    }
+
+    // Dodge triggers
+    noBtn.addEventListener("mouseenter", moveNo);
+    noBtn.addEventListener("pointerdown", (e) => {
+      if (e.pointerType === "touch" || e.pointerType === "pen") {
+        e.preventDefault();
+        moveNo();
+      }
+    });
+    noBtn.addEventListener("click", (e) => {
+      e.preventDefault();
+      moveNo();
+    });
+
+    // Happy face only when very near / on YES
+    yesBtn.addEventListener("mouseenter", () => setMood("yes"));
+    yesBtn.addEventListener("mouseleave", () => setMood("no"));
+
+    arena.addEventListener("pointermove", (e) => {
+      const p = { x: e.clientX, y: e.clientY };
+      const yesC = centerOf(yesBtn);
+      const noC = centerOf(noBtn);
+
+      const dYes = dist(p, yesC);
+      const dNo = dist(p, noC);
+
+      const YES_STRICT = 90;
+      const NO_CHASE = 140;
+
+      if (dNo < NO_CHASE) {
+        setMood("no");
+        return;
+      }
+      if (dYes < YES_STRICT) {
+        setMood("yes");
+      }
+      // otherwise: keep last mood (no neutral)
+    });
+
+    // YES -> page 4
+    yesBtn.addEventListener("click", () => {
+      window.location.href = "yes.html";
+    });
+
+    // start state: grumpy (since no neutral on this page)
+    setMood("no");
+  </script>
+</body>
+</html>

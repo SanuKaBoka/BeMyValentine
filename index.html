@@ -3,37 +3,27 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Important Valentine Proposal</title>
+  <title>Level 1</title>
   <style>
     :root{
       --ink:#141414;
-
-      --yes:#16a34a;
-      --yes2:#22c55e;
-      --no:#ef4444;
-
-      --card: rgba(255,255,255,.72);
-      --card2: rgba(255,255,255,.58);
+      --card: rgba(255,255,255,.78);
+      --card2: rgba(255,255,255,.60);
       --border: rgba(255,255,255,.35);
       --shadow: 0 18px 55px rgba(0,0,0,.22);
       --radius: 24px;
-
-      --blur: blur(10px);
     }
-
     *{box-sizing:border-box}
-
     body{
       margin:0;
       font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
-      color:var(--ink);
       min-height:100vh;
       display:flex;
       align-items:center;
       justify-content:center;
       padding:24px;
+      color:var(--ink);
 
-      /* Background image + gradients for readability */
       background:
         radial-gradient(1000px 600px at 20% 10%, rgba(255, 200, 225, .55), transparent 60%),
         radial-gradient(900px 600px at 85% 30%, rgba(200, 230, 255, .45), transparent 60%),
@@ -43,628 +33,83 @@
       background-position: center;
       background-attachment: fixed;
     }
-
     .card{
-      width:min(960px, 100%);
+      width:min(860px, 100%);
       background: linear-gradient(180deg, var(--card), var(--card2));
       border: 1px solid var(--border);
-      border-radius:var(--radius);
-      box-shadow:var(--shadow);
-      padding:28px;
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      padding: 30px;
+      backdrop-filter: blur(10px);
+      text-align:center;
       position:relative;
       overflow:hidden;
-      backdrop-filter: var(--blur);
     }
-
-    .badgeRow{
-      display:flex;
-      flex-wrap:wrap;
+    .badge{
+      display:inline-flex;
       gap:10px;
       align-items:center;
-      justify-content:space-between;
-    }
-
-    .badge, .catBadge{
-      display:inline-flex;
-      align-items:center;
-      gap:8px;
+      padding:10px 14px;
+      border-radius:999px;
+      background: rgba(255,255,255,.80);
+      border: 1px solid rgba(0,0,0,.06);
       font-weight:900;
       font-size:13px;
-      letter-spacing:.02em;
-      padding:10px 12px;
-      border-radius:999px;
-      background: rgba(255,255,255,.74);
-      border:1px solid rgba(0,0,0,.06);
       box-shadow: 0 10px 25px rgba(0,0,0,.10);
     }
-
-    .catBadge{
-      font-weight:900;
-    }
-
-    .hero{
-      margin-top:16px;
-      display:flex;
-      align-items:flex-start;
-      justify-content:space-between;
-      gap:18px;
-      flex-wrap:wrap;
-    }
-
-    .titleWrap{
-      flex: 1 1 420px;
-      min-width: 260px;
-    }
-
     h1{
-      margin:0;
-      font-size: clamp(30px, 3.4vw, 46px);
-      line-height:1.05;
+      margin:18px 0 10px;
+      font-size: clamp(28px, 3.4vw, 44px);
       letter-spacing:-.02em;
-      text-shadow: 0 2px 10px rgba(255,255,255,.25);
+      line-height:1.05;
     }
-
-    .sub{
-      margin:10px 0 0;
-      color:rgba(0,0,0,.70);
-      font-size: clamp(15px, 1.45vw, 18px);
-      line-height:1.65;
-      max-width: 62ch;
-    }
-
-    .moodCard{
-      width:260px;
-      flex: 0 0 auto;
-      border-radius:22px;
-      overflow:hidden;
-      background: rgba(255,255,255,.74);
-      border: 1px solid rgba(0,0,0,.08);
-      box-shadow: 0 18px 45px rgba(0,0,0,.16);
-      transform: rotate(0.8deg);
-    }
-
-    .moodCard img{
-      width:100%;
-      height:260px;
-      object-fit: cover;
-      display:block;
-      filter: saturate(1.02) contrast(1.02);
-    }
-
-    .moodCaption{
-      padding:10px 12px;
-      font-weight:900;
-      font-size:13px;
+    p{
+      margin: 10px auto 0;
+      max-width: 60ch;
       color: rgba(0,0,0,.70);
-      background: rgba(255,255,255,.78);
-      border-top: 1px solid rgba(0,0,0,.06);
+      font-size: clamp(15px, 1.4vw, 18px);
+      line-height:1.65;
     }
-
-    .terms{
-      margin-top:16px;
-      padding:14px 16px;
-      border-radius:18px;
-      border:1px dashed rgba(0,0,0,.16);
-      background:rgba(255,255,255,.64);
-      color:#2d2d2d;
-      font-size:14px;
-      line-height:1.6;
-    }
-
-    .arena{
-      margin-top:20px;
-      position:relative;
-      height:290px;
-      border-radius:18px;
-      border:1px solid rgba(0,0,0,.10);
-      background:
-        radial-gradient(520px 240px at 18% 30%, rgba(255,182,193,.40), transparent 60%),
-        radial-gradient(520px 240px at 78% 60%, rgba(173,216,230,.38), transparent 60%),
-        rgba(255,255,255,.55);
-      overflow:hidden;
-      box-shadow: 0 18px 45px rgba(0,0,0,.12);
-      backdrop-filter: blur(6px);
-    }
-
     .btn{
+      margin-top:22px;
       border:0;
       cursor:pointer;
       font-weight:900;
-      padding:15px 20px;
-      border-radius:16px;
+      padding: 14px 22px;
+      border-radius: 16px;
       font-size:18px;
-      box-shadow: 0 10px 22px rgba(0,0,0,.16);
-      transition: transform .12s ease, box-shadow .12s ease, filter .12s ease;
-      user-select:none;
-      -webkit-tap-highlight-color: transparent;
+      color:#fff;
+      background: linear-gradient(135deg, #22c55e, #16a34a);
+      box-shadow: 0 14px 30px rgba(0,0,0,.18);
+      transition: transform .12s ease, filter .12s ease;
     }
-
-    .btn:hover{ transform: translateY(-1px); }
-    .btn:active{ transform: translateY(1px) scale(.99); box-shadow: 0 8px 18px rgba(0,0,0,.14); }
-    .btn:focus-visible{ outline: 3px solid rgba(0,0,0,.28); outline-offset:4px; }
-
-    .yes{
-      background: linear-gradient(135deg, var(--yes2), var(--yes));
-      color:white;
-    }
-
-    .no{
-      background: linear-gradient(135deg, #ff6b6b, var(--no));
-      color:white;
-      position:absolute;
-      left: 60%;
-      top: 58%;
-      transform: translate(-50%,-50%);
-      touch-action:none;
-    }
-
-    .yesWrap{
-      position:absolute;
-      left: 35%;
-      top: 58%;
-      transform: translate(-50%,-50%);
-    }
-
-    .hint{
-      position:absolute;
-      bottom:14px;
-      left:14px;
-      right:14px;
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
-      gap:12px;
-      font-size:13px;
-      color:rgba(0,0,0,.62);
-      pointer-events:none;
-    }
-
-    .counter{
-      font-variant-numeric: tabular-nums;
-      background: rgba(255,255,255,.78);
-      border:1px solid rgba(0,0,0,.06);
-      padding:8px 10px;
-      border-radius:999px;
-      white-space:nowrap;
-    }
-
-    /* Success overlay */
-    .overlay{
-      position:absolute;
-      inset:0;
-      display:none;
-      align-items:center;
-      justify-content:center;
-      background: radial-gradient(900px 500px at 50% 20%, rgba(255,255,255,.88), rgba(255,241,246,.94));
-      padding:24px;
-    }
-    .overlay.show{ display:flex; }
-
-    .modal{
-      width:min(780px, 100%);
-      background: rgba(255,255,255,.88);
-      border:1px solid rgba(0,0,0,.08);
-      border-radius:26px;
-      box-shadow: 0 18px 55px rgba(0,0,0,.18);
-      padding:22px;
-      position:relative;
-      overflow:hidden;
-      text-align:center;
-      backdrop-filter: blur(8px);
-    }
-
-    .modal h2{
-      margin:4px 0 10px;
-      font-size: clamp(26px, 3vw, 42px);
-      letter-spacing:-.02em;
-    }
-
-    .modal .big{
-      font-size: clamp(16px, 1.5vw, 18px);
-      color: #2a2a2a;
-      margin: 8px auto 0;
-      max-width: 62ch;
-      line-height:1.6;
-    }
-
-    .dateIdea{
-      margin:16px auto 0;
-      display:inline-block;
-      padding:12px 14px;
-      border-radius:18px;
-      background: rgba(34,197,94,.10);
-      border: 1px solid rgba(34,197,94,.25);
-      font-weight:900;
-    }
-
-    .row{
-      margin-top:18px;
-      display:flex;
-      gap:12px;
-      justify-content:center;
-      flex-wrap:wrap;
-    }
-
-    .secondary{
-      background: rgba(0,0,0,.06);
-      color:#222;
-    }
-
-    .hearts{
-      position:absolute;
-      inset:0;
-      pointer-events:none;
-      overflow:hidden;
-    }
-    .heart{
-      position:absolute;
-      bottom:-40px;
-      font-size: 18px;
-      opacity:.9;
-      animation: floatUp linear forwards;
-      filter: drop-shadow(0 6px 12px rgba(0,0,0,.15));
-    }
-    @keyframes floatUp{
-      from { transform: translateY(0) translateX(0) rotate(0deg); opacity: 0; }
-      10% { opacity: .95; }
-      to   { transform: translateY(-360px) translateX(var(--drift)) rotate(18deg); opacity: 0; }
-    }
-
+    .btn:hover{ transform: translateY(-1px); filter: brightness(1.03); }
+    .btn:active{ transform: translateY(1px) scale(.99); }
     .tiny{
-      margin-top: 14px;
-      font-size: 12px;
-      color: rgba(0,0,0,.45);
-    }
-
-    @media (max-width: 560px){
-      .moodCard{ width: 100%; }
-      .moodCard img{ height: 240px; }
+      margin-top:16px;
+      font-size:12px;
+      color: rgba(0,0,0,.55);
     }
   </style>
 </head>
 <body>
-  <div class="card" role="main" aria-label="Valentine proposal">
-    <div class="badgeRow">
-      <div class="badge">💌 Official Relationship Notification System</div>
-      <div class="catBadge" id="catBadge">🐱 Cat Council: pending…</div>
-    </div>
+  <div class="card">
+    <div class="badge">🐱 Cat Council Presents</div>
+    <h1>🐱 Dear Sanika, Lets see if you win this one</h1>
+    <p>
+      Small test. Big consequences. (Consequences include: me being extra happy.)
+    </p>
 
-    <div class="hero">
-      <div class="titleWrap">
-        <h1>Hey Boki, Will you be my Valentine? 🥺👉👈</h1>
-        <p class="sub">
-          Please review the following highly serious terms before making your selection.
-          (This is legally binding in the Court of Cute™.)
-        </p>
-      </div>
-
-      <div class="moodCard" aria-hidden="true">
-        <img id="moodPic" src="neutral.jpeg" alt="mood" />
-        <div class="moodCaption" id="picCaption">🐱 Cat is judging silently.</div>
-      </div>
-    </div>
-
-    <div class="terms">
-      ✅ If you press <b>YES</b>, you agree to: receiving snacks, excessive compliments, and mandatory cat memes.<br>
-      🐾 Bonus clause: occasional “pspsps” is allowed.<br>
-      ❌ If you press <b>NO</b>, the Cat Council will file a formal complaint (and maybe knock something off a table).
-    </div>
-
-    <div class="arena" id="arena" aria-label="Button arena">
-      <div class="yesWrap">
-        <button class="btn yes" id="yesBtn" type="button">YES 💚</button>
-      </div>
-
-      <button class="btn no" id="noBtn" type="button" aria-label="No (good luck clicking this)">NO 💔</button>
-
-      <div class="hint">
-        <div>Tip: the <b>NO</b> button is shy. Don’t make eye contact. 🐾</div>
-        <div class="counter">NO dodges: <span id="dodges">0</span></div>
-      </div>
-    </div>
-
-    <div class="overlay" id="overlay" aria-live="polite">
-      <div class="modal">
-        <div class="hearts" id="hearts"></div>
-        <h2>Cat Council approves ✅🐱💘</h2>
-        <p class="big">
-          Valentine accepted. Reward unlocked: <b>Unlimited Valentine Privileges</b> + cat memes + cuddles.<br>
-          Please present yourself for celebratory hugs and dramatic romantic music.
-        </p>
-        <div class="dateIdea">🐾 Date idea: I plan something cute + you pick dessert (cat videos included).</div>
-
-        <div class="row">
-          <button class="btn yes" id="printBtn" type="button">Claim My Prize 🎁</button>
-          <button class="btn secondary" id="restartBtn" type="button">Replay (for fun) 🔁</button>
-        </div>
-
-        <div class="tiny">
-          Note: This website has been certified by the Cat Council and the International Association of Boyfriends Who Tried Their Best.
-        </div>
-      </div>
-    </div>
+    <button class="btn" id="playBtn" type="button">play ▶️</button>
+    <div class="tiny">Tip: The cat is judging silently.</div>
   </div>
 
   <script>
-    const arena = document.getElementById("arena");
-    const noBtn = document.getElementById("noBtn");
-    const yesBtn = document.getElementById("yesBtn");
-    const overlay = document.getElementById("overlay");
-    const dodgesEl = document.getElementById("dodges");
-    const hearts = document.getElementById("hearts");
-    const printBtn = document.getElementById("printBtn");
-    const restartBtn = document.getElementById("restartBtn");
-
-    const moodPic = document.getElementById("moodPic");
-    const picCaption = document.getElementById("picCaption");
-    const catBadge = document.getElementById("catBadge");
-
-    let dodges = 0;
-    let lastMoveAt = 0;
-
-    // Files next to this HTML:
-    // valentine-bg.jpg, neutral.jpeg, yes.jpg, grumpy.jpeg
-    const IMG_NEUTRAL = "neutral.jpeg";
-    const IMG_YES = "yes.jpg";
-    const IMG_GRUMPY = "grumpy.jpeg";
-
-    // Preload
-    [IMG_NEUTRAL, IMG_YES, IMG_GRUMPY].forEach(src => { const i = new Image(); i.src = src; });
-
-    // Neutral only at the beginning.
-    // After NO is chased once, we never show neutral again.
-    let neutralAllowed = true;
-
-    let lastState = "neutral"; // "neutral" | "yes" | "grumpy"
-    function setMood(state){
-      if (state === lastState) return;
-      lastState = state;
-
-      if (state === "yes") {
-        moodPic.src = IMG_YES;
-        picCaption.textContent = "🐱 Purrmitted ✅";
-        catBadge.textContent = "🐱 Cat Council: purrmitted ✅";
-      } else if (state === "grumpy") {
-        moodPic.src = IMG_GRUMPY;
-        picCaption.textContent = "🐱 Hissss… don’t chase NO 😾";
-        catBadge.textContent = "🐱 Cat Council: hissss ❌";
-      } else {
-        moodPic.src = IMG_NEUTRAL;
-        picCaption.textContent = "🐱 Cat is judging silently.";
-        catBadge.textContent = "🐱 Cat Council: pending…";
-      }
-    }
-
-    // Clamp helper
-    const clamp = (v, min, max) => Math.max(min, Math.min(max, v));
-
-    // Toast
-    let toastTimer;
-    function toast(msg) {
-      clearTimeout(toastTimer);
-      let t = document.getElementById("toast");
-      if (!t) {
-        t = document.createElement("div");
-        t.id = "toast";
-        t.style.position = "absolute";
-        t.style.left = "18px";
-        t.style.right = "18px";
-        t.style.bottom = "18px";
-        t.style.padding = "12px 14px";
-        t.style.borderRadius = "16px";
-        t.style.background = "rgba(255,255,255,.88)";
-        t.style.border = "1px solid rgba(0,0,0,.08)";
-        t.style.boxShadow = "0 18px 40px rgba(0,0,0,.16)";
-        t.style.fontWeight = "900";
-        t.style.color = "rgba(0,0,0,.72)";
-        t.style.backdropFilter = "blur(6px)";
-        t.style.zIndex = "5";
-        document.querySelector(".card").appendChild(t);
-      }
-      t.textContent = msg;
-      t.style.opacity = "1";
-      toastTimer = setTimeout(() => { t.style.opacity = "0"; }, 2200);
-    }
-
-    // Distance helpers
-    function centerOf(el){
-      const r = el.getBoundingClientRect();
-      return { x: r.left + r.width/2, y: r.top + r.height/2 };
-    }
-    function dist(a,b){
-      const dx = a.x - b.x, dy = a.y - b.y;
-      return Math.hypot(dx, dy);
-    }
-
-    function lockOutNeutral() {
-      neutralAllowed = false;
-      if (lastState === "neutral") setMood("grumpy");
-    }
-
-    // Move NO
-    function moveNoButton(reason = "dodge") {
-      const now = Date.now();
-      if (now - lastMoveAt < 70) return;
-      lastMoveAt = now;
-
-      if (reason === "dodge") {
-        lockOutNeutral();
-        setMood("grumpy");
-      }
-
-      const arenaRect = arena.getBoundingClientRect();
-      const btnRect = noBtn.getBoundingClientRect();
-
-      const pad = 14;
-      const maxX = arenaRect.width - btnRect.width - pad;
-      const maxY = arenaRect.height - btnRect.height - pad;
-
-      const x = clamp(Math.random() * maxX, pad, maxX);
-      const y = clamp(Math.random() * maxY, pad, maxY);
-
-      noBtn.style.left = `${x}px`;
-      noBtn.style.top = `${y}px`;
-      noBtn.style.transform = `translate(0,0)`;
-
-      if (reason === "dodge") {
-        dodges += 1;
-        dodgesEl.textContent = dodges;
-
-        if (dodges === 3) toast("🐱 NO has activated zoomies mode.");
-        if (dodges === 6) toast("🐱 Cat Council is watching you struggle… respectfully.");
-        if (dodges === 10) toast("🐱 Just press YES. The cat said so.");
-        if (dodges === 15) toast("🐱 NO is hiding under the couch now.");
-      }
-    }
-
-    // NO triggers
-    noBtn.addEventListener("mouseenter", () => moveNoButton("dodge"));
-    noBtn.addEventListener("pointerdown", (e) => {
-      if (e.pointerType === "touch" || e.pointerType === "pen") {
-        e.preventDefault();
-        moveNoButton("dodge");
-      }
+    // optional: reset progression each time she starts
+    localStorage.removeItem("quizPassed");
+    document.getElementById("playBtn").addEventListener("click", () => {
+      window.location.href = "quiz.html";
     });
-    noBtn.addEventListener("click", (e) => {
-      e.preventDefault();
-      toast("🐱 Nice try… meow.");
-      moveNoButton("dodge");
-    });
-
-    // YES hover = happy when on yes
-    yesBtn.addEventListener("mouseenter", () => setMood("yes"));
-    yesBtn.addEventListener("mouseleave", () => {
-      if (neutralAllowed) setMood("neutral");
-      // else keep current mood (no neutral after chasing NO)
-    });
-
-    function initNoPosition() {
-      noBtn.style.position = "absolute";
-      const r = arena.getBoundingClientRect();
-      noBtn.style.left = `${Math.round(r.width * 0.62)}px`;
-      noBtn.style.top = `${Math.round(r.height * 0.55)}px`;
-      noBtn.style.transform = `translate(-50%,-50%)`;
-    }
-
-    // Proximity logic:
-    // - Start: neutral default
-    // - After NO chased once: never show neutral again (only yes/grumpy)
-    arena.addEventListener("pointermove", (e) => {
-      const p = { x: e.clientX, y: e.clientY };
-      const yesC = centerOf(yesBtn);
-      const noC = centerOf(noBtn);
-
-      const dYes = dist(p, yesC);
-      const dNo = dist(p, noC);
-
-      const YES_STRICT = 90;
-      const NO_CHASE = 140;
-
-      if (dNo < NO_CHASE) {
-        lockOutNeutral();
-        setMood("grumpy");
-        return;
-      }
-
-      if (dYes < YES_STRICT) {
-        setMood("yes");
-        return;
-      }
-
-      if (neutralAllowed) {
-        setMood("neutral");
-      }
-      // else do nothing => stays yes or grumpy
-    });
-
-    arena.addEventListener("pointerleave", () => {
-      if (neutralAllowed) setMood("neutral");
-    });
-
-    // YES click success
-    yesBtn.addEventListener("click", () => {
-      overlay.classList.add("show");
-      setMood("yes");
-      launchHearts();
-      burstEmojis();
-    });
-
-    restartBtn.addEventListener("click", () => {
-      overlay.classList.remove("show");
-      dodges = 0;
-      dodgesEl.textContent = dodges;
-      hearts.innerHTML = "";
-      neutralAllowed = true;
-      setMood("neutral");
-      initNoPosition();
-    });
-
-    printBtn.addEventListener("click", () => {
-      toast("🐱 Prize claimed: date + cuddles + cat memes 💋");
-      burstEmojis();
-    });
-
-    function launchHearts() {
-      hearts.innerHTML = "";
-      const heartChars = ["💖","💘","💝","💗","💓","💕","❤️","🐾"];
-      const count = 18;
-
-      for (let i = 0; i < count; i++) {
-        const s = document.createElement("div");
-        s.className = "heart";
-        s.textContent = heartChars[Math.floor(Math.random()*heartChars.length)];
-
-        const left = Math.random() * 100;
-        const dur = 2.6 + Math.random() * 1.8;
-        const delay = Math.random() * 0.6;
-        const drift = (Math.random() * 120 - 60).toFixed(0) + "px";
-
-        s.style.left = left + "%";
-        s.style.setProperty("--drift", drift);
-        s.style.animationDuration = dur + "s";
-        s.style.animationDelay = delay + "s";
-        s.style.fontSize = (16 + Math.random()*18).toFixed(0) + "px";
-
-        hearts.appendChild(s);
-        setTimeout(() => s.remove(), (dur + delay) * 1000);
-      }
-    }
-
-    function burstEmojis() {
-      const container = document.querySelector(".modal");
-      const emojis = ["✨","🎉","🍓","🌹","💞","🫶","🥰","🐾","🐱"];
-      const n = 14;
-
-      for (let i = 0; i < n; i++) {
-        const el = document.createElement("div");
-        el.textContent = emojis[Math.floor(Math.random()*emojis.length)];
-        el.style.position = "absolute";
-        el.style.left = (40 + Math.random()*20) + "%";
-        el.style.top = "70%";
-        el.style.fontSize = (16 + Math.random()*18).toFixed(0) + "px";
-        el.style.opacity = "0.95";
-        el.style.pointerEvents = "none";
-        el.style.transform = `translate(-50%,-50%)`;
-        el.style.transition = "transform 900ms ease, opacity 900ms ease";
-        el.style.filter = "drop-shadow(0 10px 16px rgba(0,0,0,.18))";
-        container.appendChild(el);
-
-        requestAnimationFrame(() => {
-          const dx = (Math.random()*220 - 110).toFixed(0);
-          const dy = (Math.random()*260 + 160).toFixed(0);
-          el.style.transform = `translate(calc(-50% + ${dx}px), calc(-50% - ${dy}px)) rotate(${(Math.random()*50-25).toFixed(0)}deg)`;
-          el.style.opacity = "0";
-        });
-
-        setTimeout(() => el.remove(), 950);
-      }
-    }
-
-    window.addEventListener("resize", initNoPosition);
-
-    // Init
-    setMood("neutral");
-    initNoPosition();
   </script>
 </body>
 </html>
