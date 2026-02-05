@@ -1,0 +1,256 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>YES!!!</title>
+  <style>
+    :root{
+      --ink:#141414;
+      --card: rgba(255,255,255,.80);
+      --card2: rgba(255,255,255,.62);
+      --border: rgba(255,255,255,.35);
+      --shadow: 0 18px 55px rgba(0,0,0,.22);
+      --radius: 24px;
+    }
+    *{box-sizing:border-box}
+
+    body{
+      margin:0;
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
+      color:var(--ink);
+      min-height:100vh;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      padding:16px;
+      background:
+        radial-gradient(1000px 600px at 20% 10%, rgba(255, 200, 225, .55), transparent 60%),
+        radial-gradient(900px 600px at 85% 30%, rgba(200, 230, 255, .45), transparent 60%),
+        linear-gradient(180deg, rgba(10,10,10,.42) 0%, rgba(10,10,10,.26) 40%, rgba(10,10,10,.18) 100%),
+        url("valentine-bg.jpg");
+      background-size: cover;
+      background-position: center;
+      background-attachment: fixed;
+      overflow:hidden; /* no page scroll */
+    }
+
+    canvas{
+      position:fixed;
+      inset:0;
+      width:100%;
+      height:100%;
+      pointer-events:none;
+    }
+
+    /* ✅ Card fits in viewport, photo uses leftover space */
+    .card{
+      width:min(960px, 100%);
+      height: min(92vh, 760px); /* key: keeps everything visible on one screen */
+      display:flex;
+      flex-direction:column;
+
+      background: linear-gradient(180deg, var(--card), var(--card2));
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      padding: 18px;
+      backdrop-filter: blur(10px);
+      z-index:2;
+      text-align:center;
+      overflow:hidden; /* keeps layout clean */
+    }
+
+    .badge{
+      align-self:center;
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      padding:10px 12px;
+      border-radius:999px;
+      background: rgba(255,255,255,.85);
+      border:1px solid rgba(0,0,0,.06);
+      font-weight:900;
+      font-size:13px;
+      box-shadow: 0 10px 25px rgba(0,0,0,.10);
+      flex: 0 0 auto;
+    }
+
+    h1{
+      margin:12px 0 6px;
+      font-size: clamp(24px, 3vw, 42px);
+      letter-spacing:-.02em;
+      line-height:1.05;
+      flex: 0 0 auto;
+    }
+
+    p{
+      margin: 4px auto 0;
+      max-width: 65ch;
+      color: rgba(0,0,0,.72);
+      line-height:1.5;
+      font-size: clamp(14px, 1.35vw, 17px);
+      flex: 0 0 auto;
+    }
+
+    /* ✅ Photo becomes a flexible "middle" section */
+    .photo{
+      margin: 12px auto 0;
+      width:min(720px, 100%);
+      flex: 1 1 auto;          /* takes remaining space */
+      min-height: 0;           /* important for flex overflow behavior */
+      border-radius: 22px;
+      overflow:hidden;
+      border:1px solid rgba(0,0,0,.10);
+      box-shadow: 0 18px 45px rgba(0,0,0,.14);
+      background: rgba(255,255,255,.88);
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      padding: 10px;           /* gives “framed” look without cropping */
+    }
+
+    /* ✅ No crop. Always fully visible, just scaled down if needed */
+    .photo img{
+      max-width: 100%;
+      max-height: 100%;
+      width: auto;
+      height: auto;
+      object-fit: contain;
+      display:block;
+      border-radius: 16px;
+    }
+
+    .actions{
+      margin-top: 12px;
+      display:flex;
+      gap:12px;
+      justify-content:center;
+      flex-wrap:wrap;
+      flex: 0 0 auto;
+    }
+
+    .btn{
+      border:0;
+      cursor:pointer;
+      font-weight:900;
+      padding: 12px 16px;
+      border-radius: 16px;
+      font-size:16px;
+      box-shadow: 0 14px 30px rgba(0,0,0,.16);
+      transition: transform .12s ease, filter .12s ease;
+    }
+    .btn:hover{ transform: translateY(-1px); filter: brightness(1.03); }
+    .btn:active{ transform: translateY(1px) scale(.99); }
+    .primary{ background: linear-gradient(135deg, #22c55e, #16a34a); color:#fff; }
+    .secondary{ background: rgba(0,0,0,.06); color:#111; box-shadow:none; }
+  </style>
+</head>
+<body>
+  <canvas id="fx"></canvas>
+
+  <div class="card">
+    <div class="badge">✅ Cat Council Approved</div>
+    <h1>YOU SAID YES!!! 💘</h1>
+    <p><b>You just made me the happiest my dear Boki</b></p>
+
+    <div class="photo">
+      <img src="our-photo.jpg" alt="Our photo" />
+    </div>
+
+    <div class="actions">
+      <button class="btn primary" id="replayBtn" type="button">Replay 🔁</button>
+      <button class="btn secondary" id="moreBtn" type="button">More fireworks 🎆</button>
+    </div>
+  </div>
+
+  <script>
+    if (localStorage.getItem("quizPassed") !== "1") {
+      window.location.href = "index.html";
+    }
+
+    document.getElementById("replayBtn").addEventListener("click", () => {
+      window.location.href = "index.html";
+    });
+
+    const c = document.getElementById("fx");
+    const ctx = c.getContext("2d");
+
+    function resize(){
+      c.width = window.innerWidth * devicePixelRatio;
+      c.height = window.innerHeight * devicePixelRatio;
+      ctx.setTransform(devicePixelRatio,0,0,devicePixelRatio,0,0);
+    }
+    window.addEventListener("resize", resize);
+    resize();
+
+    const particles = [];
+    function burst(x, y){
+      const n = 70;
+      for (let i=0;i<n;i++){
+        const a = Math.random() * Math.PI * 2;
+        const s = 1.5 + Math.random() * 4.5;
+        particles.push({
+          x, y,
+          vx: Math.cos(a)*s,
+          vy: Math.sin(a)*s - (1 + Math.random()*2),
+          life: 70 + Math.random()*40,
+          r: 2 + Math.random()*2.5
+        });
+      }
+    }
+
+    let t = 0;
+    function loop(){
+      t++;
+      ctx.clearRect(0,0,window.innerWidth,window.innerHeight);
+
+      if (t % 22 === 0){
+        burst(
+          80 + Math.random() * (window.innerWidth - 160),
+          80 + Math.random() * (window.innerHeight * 0.45)
+        );
+      }
+
+      for (let i = particles.length - 1; i >= 0; i--){
+        const p = particles[i];
+        p.x += p.vx;
+        p.y += p.vy;
+        p.vy += 0.05;
+        p.vx *= 0.99;
+        p.vy *= 0.99;
+        p.life -= 1;
+
+        ctx.globalAlpha = Math.max(0, Math.min(1, p.life / 90));
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, p.r, 0, Math.PI*2);
+        ctx.fill();
+
+        if (p.life <= 0) particles.splice(i, 1);
+      }
+      ctx.globalAlpha = 1;
+
+      requestAnimationFrame(loop);
+    }
+
+    for (let i=0;i<6;i++){
+      burst(
+        120 + Math.random() * (window.innerWidth - 240),
+        90 + Math.random() * (window.innerHeight * 0.35)
+      );
+    }
+
+    document.getElementById("moreBtn").addEventListener("click", () => {
+      for (let i=0;i<10;i++){
+        burst(
+          100 + Math.random() * (window.innerWidth - 200),
+          80 + Math.random() * (window.innerHeight * 0.45)
+        );
+      }
+    });
+
+    window.addEventListener("pointerdown", (e) => burst(e.clientX, e.clientY));
+    loop();
+  </script>
+</body>
+</html>
